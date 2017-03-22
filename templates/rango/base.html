@@ -13,7 +13,7 @@
 	<body>
 		<div>
 		{% block sidebar_block %}
-			{% get_category_list category %}
+			{% get_game_list game %}
 		{% endblock %}
 		</div>
 		
@@ -26,9 +26,9 @@
 		<div>
 			<ul>
 			{% if user.is_authenticated %}
-				<li><a href = "{% url 'restricted' %}">Restricted Page</a></li>
+				<li><a href = "{% url 'restricted' %}">Restricted review</a></li>
 				<li><a href = "{% url 'logout' %}">Logout</a></li>
-				<li><a href = "{% url 'add_category' %}">Add New Game</a></li>				
+				<li><a href = "{% url 'add_game' %}">Add New Game</a></li>				
 			{% else %}
 				<li><a href = "{% url 'login' %}">Sign In</a></li>
 				<li><a href = "{% url 'register' %}">Sign Up</a></li>

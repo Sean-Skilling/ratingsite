@@ -1,0 +1,29 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	{{ game.name }}
+{% endblock %}
+
+{% block body_block %}
+	{% if game %}
+		<h1>{{game.name}}</h1>
+		
+		{% if review %}
+			<ul>
+			{% for review in reviews %}
+				<li><a href="{{ review.url}}">{{ review.title }}</a></li>
+			{% endfor %}
+			</ul>
+		{% else %}
+			<strong>No reviews currently in game.</strong>
+		{% endif %}
+		
+		{% if user.is_authenticated %}
+		<a href="/rango/game/{{ game.slug }}/add_review">Add review</a><br />
+		{% endif %}
+
+	{% else %}
+		The specified game does not exist!
+	{% endif %}
+{% endblock %}

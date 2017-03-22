@@ -1,5 +1,5 @@
 from django import forms
-from rango.models import Page, Category, UserProfile
+from rango.models import Review, Game, UserProfile
 from django.contrib.auth.models import User
 
 class GameForm(forms.ModelForm):
@@ -8,14 +8,10 @@ class GameForm(forms.ModelForm):
 		model = Game
 		exclude = ('slug', 'views' )
 	
-class PageForm(forms.ModelForm):
-	title = forms.CharField(max_length = 128, help_text = "Please enter the title of the page.")
-	url = forms.URLField(max_length = 200, help_text = "Please enter the URL of the page.")
-	views = forms.IntegerField(widget=forms.HiddenInput(), initial = 0)
-
+class ReviewForm(forms.ModelForm):
 	class Meta:
 
-		model = Page
+		model = Review
 		fields = ('game', 'description', 'rating', 'image' )
 
 

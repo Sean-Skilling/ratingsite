@@ -14,11 +14,11 @@
 
 	
 	<h2>Highest Rated Games</h2>
-		{% if categories %}
+		{% if games %}
 		<ul>
-			{% for category in categories %}
+			{% for game in games %}
 				<li>
-				<a href="{% url 'show_category' category.slug %}">{{ category.name }}</a>
+				<a href="{% url 'show_game' game.slug %}">{{ game.name }}</a>
 				</li>
 			{% endfor %}
 		</ul>
@@ -27,17 +27,17 @@
 		{% endif %}
 		
 	<h2>Most Viewed Games</h2>
-	{% if pages %}
+	{% if reviews %}
 		<ul>
-			{% for page in pages %}
+			{% for game in games %}
 				<li>
-				<a href="{{ page.url }}">{{ page.title }}</a>
+				<a href="{{ game }}">{{ game.name }}</a>
 				</li>
 			{% endfor %}
 		</ul>
 		{% else %}
 			<strong> There are no games present.</strong>
 		{% endif %}
-
+		<br>
 	<img src="{% static "images/Do_you_want_to_have_a_bad_time.jpg" %}" alt="Picture of Sans" />
 {% endblock %}

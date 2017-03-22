@@ -1,0 +1,22 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	Rango
+{% endblock %}
+
+{% block body_block %}
+	<div>
+	{% if game %}
+		<h1>Add a review for {{ game.name }}</h1>
+			<form id="review_form" method="post" action="/rango/game/{{ game.slug }}/add_review/">
+			
+				{% csrf_token %}
+				{{  form.as_p  }}
+				<input type="submit" name="submit" value="Create Review" />
+			</form>
+		{% else %}
+			The specified game does not exist!
+		{% endif %}
+		</div>
+{% endblock %}
