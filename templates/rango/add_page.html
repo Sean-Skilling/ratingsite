@@ -8,7 +8,7 @@
 {% block body_block %}
 	<div>
 	{% if category %}
-		<h1>Add a page to {{ category.name }}</h1>
+		<h1>Add a review for {{ category.name }}</h1>
 			<form id="page_form" method="post" action="/rango/category/{{ category.slug }}/add_page/">
 			
 				{% csrf_token %}
@@ -21,10 +21,10 @@
 					{{ field.help_text }}
 					{{ field }}
 				{% endfor %}
-				<input type="submit" name="submit" value="Create Category" />
+				<input type="submit" name="submit" value="Create Game" />
 			</form>
 		{% else %}
-			The specified category does not exist!
+			The specified game does not exist!
 		{% endif %}
 		</div>
 {% endblock %}

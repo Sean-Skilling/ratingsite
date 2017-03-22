@@ -6,16 +6,14 @@
 {% endblock %}
 
 {% block body_block %}
-	<h1>Rango says...</h1>
 	{% if user.is_authenticated %}
-		howdy {{ user.username }}!
+		<h1>Welcome {{ user.username }}!</h1>
 	{% else %}
-		hey there partner!
+		<h1>Welcome!</h1>
 	{% endif %}
-	<br />
-	visits: {{ visits }}<br />
+
 	
-	<h2>Most Liked Categories</h2>
+	<h2>Highest Rated Games</h2>
 		{% if categories %}
 		<ul>
 			{% for category in categories %}
@@ -25,10 +23,10 @@
 			{% endfor %}
 		</ul>
 		{% else %}
-			<strong> There are no categories present.</strong>
+			<strong> There are no games present.</strong>
 		{% endif %}
 		
-	<h2>Most Viewed Pages</h2>
+	<h2>Most Viewed Games</h2>
 	{% if pages %}
 		<ul>
 			{% for page in pages %}
@@ -38,8 +36,8 @@
 			{% endfor %}
 		</ul>
 		{% else %}
-			<strong> There are no pages present.</strong>
+			<strong> There are no games present.</strong>
 		{% endif %}
 
-	<img src="{% static "images/rango.jpg" %}" alt="Picture of Rango" />
+	<img src="{% static "images/Do_you_want_to_have_a_bad_time.jpg" %}" alt="Picture of Sans" />
 {% endblock %}
