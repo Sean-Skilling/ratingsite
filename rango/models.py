@@ -4,10 +4,14 @@ from django.contrib.auth.models import User
 
 from django.db import models
 
-class Category(models.Model):
+class Game(models.Model):
 	name = models.CharField(max_length = 128, unique = True)
-	views = models.IntegerField(default = 0)
-	likes = models.IntegerField(default = 0)
+	developer = models.CharField(max_length = 128)
+	platform = models.CharField(max_length=128)
+	releaseDate = models.DateField(_("Date"), default=datetime.date.today)
+	description = models.CharField(max_length=512)
+	views = IntegerField(default = 0)
+	image = models.ImageField(upload_to='game_images', blank=True)
 	slug = models.SlugField(unique = True)
 	
 	def save(self, *args, **kwargs):
@@ -23,11 +27,13 @@ class Category(models.Model):
 	def __unicode__(self):
 		return self.name
 		
-class Page(models.Model):
-	category = models.ForeignKey(Category)
-	title = models.CharField(max_length = 128)
-	url = models.URLField()
-	views = models.IntegerField(default = 0)
+class Review(models.Model):
+	game = models.ForeignKey(Game)
+	description = models.CharField(max_length=512)
+	rating = models.FloatField(default=0)
+	image = models.ImageField(upload_to='review_images', blank=True)
+
+
 	
 	def __str__(self):
 		return self.title	
@@ -36,14 +42,14 @@ class Page(models.Model):
 		return self.title
 		
 class UserProfile(models.Model):
-	# This line is required. Links UserProfile to a User model instance
+
 	user = models.OneToOneField(User)
 	
-	# The additional attributes we wish to include.
-	website = models.URLField(blank=True)
-	picture = models.ImageField(upload_to = 'profile_images', blank = True)
+
+	firstName = models.CharField(max_length = 128)
+	surname = models.CharField(max_length = 128)
 	
-	# Override the __unicode__() method to return something meaningful!
+
 	def __str__(self):
 		return self.user.username
 	def __unicode__(self):
