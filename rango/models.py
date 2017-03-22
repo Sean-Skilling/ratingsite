@@ -12,6 +12,7 @@ class Game(models.Model):
 	description = models.CharField(max_length=512)
 	views = models.IntegerField(default = 0)
 	image = models.ImageField(upload_to='game_images', blank=True)
+	rating = models.FloatField(default = 0)
 	slug = models.SlugField(unique = True)
 	
 	def save(self, *args, **kwargs):
@@ -32,14 +33,12 @@ class Review(models.Model):
 	description = models.CharField(max_length=512)
 	rating = models.FloatField(default=0, validators=[MaxValueValidator(10)])
 	image = models.ImageField(upload_to='review_images', blank=True)
-
-
 	
 	def __str__(self):
-		return self.game	
+		return self.Game	
 	
 	def __unicode__(self):
-		return self.game
+		return self.Game
 		
 class UserProfile(models.Model):
 

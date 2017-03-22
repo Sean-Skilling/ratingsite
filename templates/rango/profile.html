@@ -1,0 +1,10 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	My Profile
+{% endblock %}
+
+{% block body_block %}
+	<h1>Username: {{ request.user.username }}</h1>
+{% endblock %}

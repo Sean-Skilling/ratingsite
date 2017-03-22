@@ -1,11 +1,13 @@
 from django.shortcuts import render
-from rango.models import Game, Review
+from rango.models import Game, Review, UserProfile
 from rango.forms import GameForm, ReviewForm, UserForm, UserProfileForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+from django.contrib.auth.models import User
+from django.contrib.auth import logout
 
 def index(request):
 	request.session.set_test_cookie()
@@ -14,9 +16,9 @@ def index(request):
 	# Retrieve the top 5 only - or all if less than 5.
 	# Place the list in our context_dict dictionary	
 	# that will be passed to the template engine.
-	Game_list = Game.objects.order_by('-likes')[:5]
-	Review_list = Review.objects.order_by('-views')[:5]
-	context_dict = {'categories': Game_list, 'Reviews': Review_list}
+	like_list = Game.objects.order_by('-likes')[:5]
+	viewed_list = Review.objects.order_by('-views')[:5]
+	context_dict = {'likes': like_list, 'viewed': viewed_list}
 	
 	visitor_cookie_handler(request)
 	context_dict['visits'] = request.session['visits']
@@ -98,7 +100,7 @@ def add_game(request):
 def add_review(request, game_name_slug):
 	try:
 		game = Game.objects.get(slug=game_name_slug)
-	except Game.DoesNotExist:
+	except game.DoesNotExist:
 		game = None
 		
 	form = ReviewForm()
@@ -223,3 +225,10 @@ def visitor_cookie_handler(request):
 		request.session['last_visit'] = last_visit_cookie
 	request.session['visits'] = visits
 
+@login_required
+def user_profile(request):
+
+	profile = UserProfile.objects.get(user = request.user)
+		
+	context_dict = {'profile': profile}
+	return render(request, 'rango/profile.html', context_dict)

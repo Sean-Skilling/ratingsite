@@ -12,7 +12,9 @@
 		{% if review %}
 			<ul>
 			{% for review in reviews %}
-				<li><a href="{{ review.url}}">{{ review.title }}</a></li>
+				{% if review.game == game %}
+					{{ review }}
+				{% endif %}
 			{% endfor %}
 			</ul>
 		{% else %}
